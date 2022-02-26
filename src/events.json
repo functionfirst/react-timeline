@@ -1,0 +1,34 @@
+[
+  {
+    "title": "Pretty epic!",
+    "description": "This was good news!"
+  },
+  {
+    "title": "Just an FYI",
+    "description": "We're still working on this.."
+  },
+  {
+    "title": "Oh really?",
+    "description": "You couldn't make it up!"
+  },
+  {
+    "title": "Honest mistake",
+    "description": "Well that was unexpected"
+  },
+  {
+    "title": "Momentous Event",
+    "description": "Is this thing still on?"
+  },
+  {
+    "title": "Oh calamity!",
+    "description": "Just kidding, we fixed it already"
+  },
+  {
+    "title": "Testing 101",
+    "description": "Someclevertesterdecidedtouseanunreasonablylongwordwithoutspacestoseewhatwouldhappentoyhelayout"
+  },
+  {
+    "title": "Mary Poppins",
+    "description": "supercalifragilisticexpialidocious"
+  }
+]
