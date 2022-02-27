@@ -1,29 +1,25 @@
 import { createContext, useContext, useEffect, useState } from 'react'
-import { useInterval } from '../hooks'
-
-const TIMELINE_INTERVAL_IN_SECONDS = 5
+import { usePolling } from '../hooks'
 
 export const TimelineContext = createContext()
 
-export const TimelineContextProvider = ({ children, service }) => {
+export const TimelineContextProvider = ({ children, service, limit = 10 }) => {
   if (service === undefined) {
     throw new Error('TimelineContextProvider expects a service to be provided.')
   }
 
+  const polling = usePolling()
   const [points, setPoints] = useState([])
-
-  const [polling, setPolling] = useState(new Date())
-
-  useInterval(() => setPolling(new Date()), TIMELINE_INTERVAL_IN_SECONDS)
 
   useEffect(() => {
     async function fetchData() {
-      const data = await service.findAll({ limit: 5 })
+      console.log('fetch data')
+      const data = await service.findAll({ limit })
       setPoints(data)
     }
 
     fetchData()
-  }, [polling, service])
+  }, [polling, service, limit])
 
   return <TimelineContext.Provider value={points}>{children}</TimelineContext.Provider>
 }
