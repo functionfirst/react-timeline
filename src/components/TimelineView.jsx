@@ -2,46 +2,49 @@ import { useTimeline } from './TimelineContext'
 import Timestamp from './Timestamp'
 
 function TimelineView({ className }) {
-  const points = useTimeline()
-  const timelinePoints = points?.map((point, index) => <TimelinePoint key={index} {...point} index={index} />)
+  const timeline = useTimeline()
+  const points = timeline?.map((point, index) => {
+    const position = index % 2 === 0 ? 'left' : 'right'
+    return <TimelinePoint key={index} {...point} position={position} />
+  })
 
   return (
     <TimelineContainer className={className}>
-      {timelinePoints}
+      {points}
     </TimelineContainer>
   )
 }
 
 function TimelineContainer({ className, children }) {
   return (
-    <div className={`bg-gray-100 relative grid gap-6 p-6 md:p-12 ${className}`}>
+    <section className={`shadow-inner flex flex-col-reverse bg-gray-100 relative w-full gap-6 p-6 ${className}`}>
       {children}
-
-      <div className="mx-4 absolute inset-x-0 inset-0 w-2 bg-gray-300"></div>
-    </div>
+      <div className="mx-4 md:-ml-1 absolute md:left-[50%] inset-0 w-2 bg-gray-300"></div>
+    </section>
   )
 }
 
-function TimelinePoint({ description, title, time, index }) {
-  const flexDirection = index % 2 ? 'md:flex-row-reverse' : ''
+function TimelinePoint({ description, title, time, position }) {
+  const flexDirection = position === 'right' ? 'flex-row' : 'md:flex-row-reverse'
+  const justifyDirection = position === 'right' ? 'justify-end' : 'justify-start'
 
   return (
-    <section className={`flex flex-row ${flexDirection} z-10 w-full`}>
-      <span className="absolute mt-4 left-2 h-6 w-6 rounded-full border-4 shadow-md border-white bg-brand" />
+    <article className={`flex ${justifyDirection} z-10 w-full`}>
+      <span className="absolute mt-4 md:-ml-3 left-2 md:left-[50%] h-6 w-6 rounded-full border-4 shadow-md border-white bg-brand" />
 
-      <header className="flex items-start ml-4 border bg-white md:w-1/2 w-full p-4 gap-4 text-sm shadow-sm break-all">
+      <div className={`flex ${flexDirection} items-start justify-start border bg-white w-full md:w-72 p-4 gap-4 shadow-sm ml-4 md:ml-0`}>
         <Timestamp
           className="px-2 py-1 text-xs rounded-sm bg-gray-200 whitespace-no-wrap"
           dateTime={time}
           format="HH:mmaaa"
         />
 
-        <div className="flex-1">
+        <div className="flex-1 break-words text-sm">
           <h2 className="mb-1">{title}</h2>
           <p className="text-gray-500">{description}</p>
         </div>
-      </header>
-    </section>
+      </div>
+    </article>
   )
 }
 
