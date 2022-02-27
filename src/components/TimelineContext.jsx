@@ -13,7 +13,6 @@ export const TimelineContextProvider = ({ children, service, limit = 10 }) => {
 
   useEffect(() => {
     async function fetchData() {
-      console.log('fetch data')
       const data = await service.findAll({ limit })
       setPoints(data)
     }
