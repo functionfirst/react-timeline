@@ -12,12 +12,27 @@ export const TimelineContextProvider = ({ children, service, limit = 10 }) => {
   const [points, setPoints] = useState([])
 
   useEffect(() => {
-    async function fetchData() {
-      const data = await service.findAll({ limit })
+    async function init() {
+      const data = await service.init()
       setPoints(data)
     }
 
-    fetchData()
+    init()
+  }, [service])
+
+  useEffect(() => {
+    async function getRandomEvent() {
+      const data = await service.getRandomEvent()
+      setPoints((prevState) => {
+        const state = [...prevState]
+        if (state.length >= limit) {
+          state.shift()
+        }
+        return [...state, data]
+      })
+    }
+
+    polling && getRandomEvent()
   }, [polling, service, limit])
 
   return <TimelineContext.Provider value={points}>{children}</TimelineContext.Provider>

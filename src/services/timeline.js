@@ -23,55 +23,14 @@ const initialData = [
   }
 ]
 
-const getRandomEvent = () => {
-  const event = events[Math.floor(Math.random() * events.length)]
-  event.time = new Date().toISOString()
-  return event
-}
-
-// class Observer {
-//   subscribers = []
-
-//   subscribe(fn) {
-//     console.log('subscribe: ', this.subscribers.length)
-//     this.subscribers.push(fn)
-//     console.log('subscribe after: ', this.subscribers.length)
-//   }
-
-//   unsubscribe(fn) {
-//     console.log('unsubscribe: ', this.subscribers.length)
-//     this.subscribers = this.subscribers.filter(item => item !== fn)
-//   }
-
-//   notify(scope) {
-//     console.log('notify subscribers:', this.subscribers.length)
-//     this.subscribers.forEach(fn => fn.call(scope))
-//   }
-// }
-
-// const intervalObserver = new Observer()
-
-const getRange = (arr, limit) => {
-  const start = arr.length - limit
-  const end = arr.length
-  return arr.slice(start, end)
-}
-
 export class TimelineService {
-  constructor() {
-    this.data = initialData
-    // intervalObserver.subscribe(this.fetch)
+  getRandomEvent() {
+    const event = events[Math.floor(Math.random() * events.length)]
+    event.time = new Date().toISOString()
+    return event
   }
 
-  fetch() {
-    // Replace with API call
-    const event = getRandomEvent()
-    this.data.push(event)
-  }
-
-  findAll({ limit = 10 }) {
-    // intervalObserver.notify(this)
-    this.fetch()
-    return getRange(this.data, limit)
+  init() {
+    return initialData
   }
 }
