@@ -5,7 +5,7 @@
   },
   {
     "title": "Just an FYI",
-    "description": "We're still working on this.."
+    "description": "We're still working on it..."
   },
   {
     "title": "Oh really?",
@@ -13,7 +13,7 @@
   },
   {
     "title": "Honest mistake",
-    "description": "Well that was unexpected"
+    "description": "Well that was unexpected!"
   },
   {
     "title": "Momentous Event",
@@ -21,14 +21,14 @@
   },
   {
     "title": "Oh calamity!",
-    "description": "Just kidding, we fixed it already"
+    "description": "Just kidding, we fixed it already!"
   },
   {
-    "title": "Testing 101",
-    "description": "Someclevertesterdecidedtouseanunreasonablylongwordwithoutspacestoseewhatwouldhappentoyhelayout"
+    "title": "Policy Updated",
+    "description": "Your policy has now been approved."
   },
   {
-    "title": "Mary Poppins",
-    "description": "supercalifragilisticexpialidocious"
+    "title": "Renewal Reminder",
+    "description": "Your policy will expire in 30 days."
   }
 ]

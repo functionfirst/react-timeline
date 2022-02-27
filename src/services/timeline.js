@@ -1,25 +1,27 @@
 import events from '../events'
 
-const initialData = [{
-  time: new Date('February 25, 2022 17:37').toISOString(),
-  title: 'Most Immediate',
-  description: 'Description about what just happened'
-},
-{
-  time: new Date('February 25, 2022 17:11').toISOString(),
-  title: 'Yet another',
-  description: 'Chronologically, the third in the timeline'
-},
-{
-  time: new Date('February 25, 2022 16:52').toISOString(),
-  title: 'Second event',
-  description: 'Some more stuff is going on'
-},
-{
-  time: new Date('February 25, 2022 16:16').toISOString(),
-  title: 'Initial event',
-  description: 'Some new development is taking place'
-}]
+const initialData = [
+  {
+    time: new Date('February 25, 2022 16:16').toISOString(),
+    title: 'Initial event',
+    description: 'Some new development is taking place'
+  },
+  {
+    time: new Date('February 25, 2022 16:52').toISOString(),
+    title: 'Second event',
+    description: 'Some more stuff is going on'
+  },
+  {
+    time: new Date('February 25, 2022 17:11').toISOString(),
+    title: 'Yet another',
+    description: 'Chronologically, the third in the timeline'
+  },
+  {
+    time: new Date('February 25, 2022 17:37').toISOString(),
+    title: 'Most Immediate',
+    description: 'Description about what just happened'
+  }
+]
 
 const getRandomEvent = () => {
   const event = events[Math.floor(Math.random() * events.length)]
@@ -49,6 +51,12 @@ const getRandomEvent = () => {
 
 // const intervalObserver = new Observer()
 
+const getRange = (arr, limit) => {
+  const start = arr.length - limit
+  const end = arr.length
+  return arr.slice(start, end)
+}
+
 export class TimelineService {
   constructor() {
     this.data = initialData
@@ -56,13 +64,14 @@ export class TimelineService {
   }
 
   fetch() {
+    // Replace with API call
     const event = getRandomEvent()
-    this.data.unshift(event)
+    this.data.push(event)
   }
 
   findAll({ limit = 10 }) {
-    this.fetch()
     // intervalObserver.notify(this)
-    return this.data.slice(0, limit)
+    this.fetch()
+    return getRange(this.data, limit)
   }
 }
