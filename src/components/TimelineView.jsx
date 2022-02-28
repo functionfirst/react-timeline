@@ -4,8 +4,12 @@ import Timestamp from './Timestamp'
 function TimelineView({ className }) {
   const timeline = useTimeline()
   const points = timeline?.map((point, index) => {
-    const position = index % 2 === 0 ? 'left' : 'right'
-    return <TimelinePoint key={index} {...point} position={position} />
+    return (
+      <TimelinePoint
+        key={index}
+        {...point}
+      />
+    )
   })
 
   return (

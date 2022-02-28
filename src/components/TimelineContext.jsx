@@ -1,5 +1,5 @@
-import { createContext, useContext, useEffect, useState } from 'react'
-import { usePolling } from '../hooks'
+import { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import { usePolling, usePositionDecorator } from '../hooks'
 
 export const TimelineContext = createContext()
 
@@ -8,32 +8,37 @@ export const TimelineContextProvider = ({ children, service, limit = 10 }) => {
     throw new Error('TimelineContextProvider expects a service to be provided.')
   }
 
+  const { positionDecorator } = usePositionDecorator()
   const polling = usePolling()
   const [points, setPoints] = useState([])
 
+  const getRandomEvent = useCallback(async () => {
+    const data = await service.getRandomEvent()
+    const point = positionDecorator(data)
+    setPoints((prevState) => {
+      const state = [...prevState]
+
+      if (state.length >= limit) {
+        state.shift()
+      }
+
+      return [...state, point]
+    })
+  }, [limit, service, positionDecorator])
+
   useEffect(() => {
     async function init() {
+      console.log('init')
       const data = await service.init()
-      setPoints(data)
+      const points = data.map(item => positionDecorator(item))
+      setPoints(points)
     }
-
     init()
-  }, [service])
+  }, [service, positionDecorator])
 
   useEffect(() => {
-    async function getRandomEvent() {
-      const data = await service.getRandomEvent()
-      setPoints((prevState) => {
-        const state = [...prevState]
-        if (state.length >= limit) {
-          state.shift()
-        }
-        return [...state, data]
-      })
-    }
-
     polling && getRandomEvent()
-  }, [polling, service, limit])
+  }, [polling, getRandomEvent])
 
   return <TimelineContext.Provider value={points}>{children}</TimelineContext.Provider>
 }
