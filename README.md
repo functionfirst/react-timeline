@@ -9,5 +9,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 3. Open http://localhost:3000/
 
 ## Bugs/Issues
-- Events switch position when the array is re-rendered
 - Add transition when new events are added
