@@ -28,7 +28,6 @@ export const TimelineContextProvider = ({ children, service, limit = 10 }) => {
 
   useEffect(() => {
     async function init() {
-      console.log('init')
       const data = await service.init()
       const points = data.map(item => positionDecorator(item))
       setPoints(points)
